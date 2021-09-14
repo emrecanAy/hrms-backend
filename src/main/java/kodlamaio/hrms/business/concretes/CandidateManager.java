@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
+import kodlamaio.hrms.core.mernis.abstracts.MernisCheckService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
@@ -19,12 +20,16 @@ import kodlamaio.hrms.entites.concretes.Candidate;
 public class CandidateManager implements CandidateService{
 
 	private CandidateDao candidateDao;
+	private MernisCheckService mernisCheckService;
+	
+	public CandidateManager(MernisCheckService mernisCheckService) {
+		this.mernisCheckService = mernisCheckService;
+	}
 	
 	@Autowired
 	public CandidateManager(CandidateDao candidateDao) {
 		super();
-		this.candidateDao = candidateDao;
-		
+		this.candidateDao = candidateDao;	
 	}
 
 	@Override
@@ -39,18 +44,12 @@ public class CandidateManager implements CandidateService{
 			this.candidateDao.save(candidate);
 			return new SuccessResult("Kişi başarıyla eklendi!");
 		}
-		else if(candidate.getFirstName() == null ||
-				candidate.getLastName() == null ||
-				candidate.getEmail() == null ||
-				candidate.getIdentityNumber() == null ||
-				candidate.getPassword() == null ||
-				candidate.getYearOfBirth() == null)
-		{
-			return new ErrorResult("Bütün alanlar dolu olmalıdır!");
+		else if(!mernisCheckService.checkIfRealPerson(candidate)){
+			return new ErrorResult("Geçersiz kullanıcı!"); 
 		}
 		else{
 			
-			return new ErrorResult("Email zaten kayıtlı!");
+			return new ErrorResult(candidate.getEmail() +" : Email zaten kayıtlı!");
 		}
 		
 	}

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobTitleService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
+import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobTitleDao;
 import kodlamaio.hrms.entites.concretes.JobTitle;
 
@@ -31,8 +33,19 @@ private JobTitleDao jobTitleDao;
 
 	@Override
 	public Result add(JobTitle jobTitle) {
-		// TODO Auto-generated method stub
-		return null;
+		if(!checkIfJobTitleExist(jobTitle.getJobPosition())) {
+			return new ErrorResult(jobTitle.getJobPosition()+ " zaten kayıtlı!");
+		}else {
+			this.jobTitleDao.save(jobTitle);
+			return new SuccessResult("Meslek başarıyla eklendi!");
+		}	
+	}
+	
+	public boolean checkIfJobTitleExist(String jobTitle) {
+		if(this.jobTitleDao.getByJobTitle(jobTitle) != null) {
+			return false;
+		}
+		return true;
 	}
 	
 }

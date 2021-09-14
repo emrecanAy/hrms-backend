@@ -56,7 +56,7 @@ public class CandidatesController {
 		}
 		
 		ErrorDataResult<Object> errors 
-		= new ErrorDataResult<Object>(validationErrors,"Doğrulama hataları");
+		= new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
 		return errors;
 	}
 	

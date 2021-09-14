@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +28,17 @@ public class Employer extends User {
 	private int id;
 	
 	@Column(name="company_name")
+	@NotNull
+	@NotBlank
 	private String companyName;
 	
 	@Column(name="web_address")
+	@NotNull
+	@NotBlank
 	private String webAddress;
 	
 	@Column(name="phone_number")
+	@NotNull
+	@NotBlank
 	private String phoneNumber;
 }

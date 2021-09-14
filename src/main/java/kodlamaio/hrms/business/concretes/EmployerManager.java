@@ -37,14 +37,6 @@ public class EmployerManager implements EmployerService{
 			this.employerDao.save(employer);
 			return new SuccessResult("Kayıt işlemi başarılı!(Onay bekleniyor...)");
 		}
-		else if(employer.getCompanyName() == null ||
-				employer.getEmail() == null ||
-				employer.getPassword() == null ||
-				employer.getPhoneNumber() == null ||
-				employer.getWebAddress() == null)
-		{
-			return new ErrorResult("Bütün alanlar dolu olmalıdır!");
-		}
 		else{
 			
 			return new ErrorResult("Email zaten kayıtlı!");

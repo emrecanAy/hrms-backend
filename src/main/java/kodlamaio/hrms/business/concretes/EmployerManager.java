@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
+import kodlamaio.hrms.core.email.abstracts.EmailCheckService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
@@ -18,6 +19,13 @@ import kodlamaio.hrms.entites.concretes.Employer;
 public class EmployerManager implements EmployerService{
 
 	private EmployerDao employerDao;
+	private EmailCheckService emailCheckService;
+	
+	public EmployerManager(EmailCheckService emailCheckService) {
+		super();
+		this.emailCheckService = emailCheckService;
+	}
+	
 	
 	@Autowired
 	public EmployerManager(EmployerDao employerDao) {
@@ -32,10 +40,13 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public Result add(Employer employer) {
+	public Result add(Employer employer, String password) {
 		if (checkIfEmailExist(employer.getEmail())) {
 			this.employerDao.save(employer);
 			return new SuccessResult("Kayıt işlemi başarılı!(Onay bekleniyor...)");
+		}
+		else if(!this.emailCheckService.checkEmailValidation(employer.getEmail())) {
+			return new ErrorResult(employer.getEmail() +" : Email onaylanmamış!");
 		}
 		else{
 			
@@ -50,5 +61,5 @@ public class EmployerManager implements EmployerService{
 		}
 		return true;
 	}
-	
+
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
+import kodlamaio.hrms.core.email.abstracts.EmailCheckService;
 import kodlamaio.hrms.core.mernis.abstracts.MernisCheckService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
@@ -21,9 +22,11 @@ public class CandidateManager implements CandidateService{
 
 	private CandidateDao candidateDao;
 	private MernisCheckService mernisCheckService;
+	private EmailCheckService emailCheckService;
 	
-	public CandidateManager(MernisCheckService mernisCheckService) {
+	public CandidateManager(MernisCheckService mernisCheckService, EmailCheckService emailCheckService) {
 		this.mernisCheckService = mernisCheckService;
+		this.emailCheckService = emailCheckService;
 	}
 	
 	@Autowired
@@ -47,8 +50,10 @@ public class CandidateManager implements CandidateService{
 		else if(!mernisCheckService.checkIfRealPerson(candidate)){
 			return new ErrorResult("Geçersiz kullanıcı!"); 
 		}
-		else{
-			
+		else if(!emailCheckService.checkEmailValidation(candidate.getEmail())) {
+			return new ErrorResult(candidate.getEmail() +" : Email onaylanmamış!"); 
+		}
+		else{			
 			return new ErrorResult(candidate.getEmail() +" : Email zaten kayıtlı!");
 		}
 		

@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@PrimaryKeyJoinColumn(name = "id")
 @Table(name="employers")
 public class Employer extends User {
 
@@ -41,4 +43,6 @@ public class Employer extends User {
 	@NotNull
 	@NotBlank
 	private String phoneNumber;
+	
+	
 }

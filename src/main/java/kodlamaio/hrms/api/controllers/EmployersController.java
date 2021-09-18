@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entites.concretes.Employer;
 
 @RestController
@@ -47,6 +48,34 @@ public class EmployersController {
 	public ResponseEntity<?> add(@Valid @RequestBody Employer employer, @RequestParam String rePassword) {
 		return ResponseEntity.ok(this.employerService.add(employer, rePassword));
 	}
+	
+	@PostMapping("/confirmEmployer")
+    public Result confirmEmployer(@RequestParam int id) {
+        return employerService.confirmEmployer(id);
+    }
+	
+	@PostMapping("/update")
+    public Result update(@RequestBody Employer employer) {
+        return employerService.update(employer);
+    }
+	
+	@PostMapping("/updateConfirm")
+	public Result updateConfirm(@RequestParam int id) {
+	     return employerService.updateConfirm(id);
+	}
+
+	@GetMapping("/getByUserId")
+	public DataResult<Employer> getByUserId(@RequestParam int id) {
+	     return employerService.getByUserId(id);
+	}
+
+	@GetMapping("/getByUpdatedDataNotNull")
+	DataResult<List<Employer>> getByUpdatedDataNotNull(){
+	     return employerService.getByUpdatedDataNotNull();
+	}
+	
+
+	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

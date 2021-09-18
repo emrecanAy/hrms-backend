@@ -1,5 +1,7 @@
 package kodlamaio.hrms.entites.concretes;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,4 +43,15 @@ public class User {
 	@NotNull
 	@NotBlank
 	private String password;
+	
+	@Column(name="is_active",columnDefinition = "boolean default true")
+    private Boolean isActive=true;
+
+    @JsonIgnore
+    @Column(name="created_date")
+    private LocalDate createdDate=LocalDate.now();
+
+    @JsonIgnore
+    @Column(name="is_deleted",columnDefinition = "boolean default false")
+    private Boolean isDeleted= false;
 }

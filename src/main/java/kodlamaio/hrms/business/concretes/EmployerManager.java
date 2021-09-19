@@ -1,7 +1,6 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +21,11 @@ public class EmployerManager implements EmployerService{
 	private EmployerDao employerDao;
 	private EmailCheckService emailCheckService;
 	
-	public EmployerManager(EmailCheckService emailCheckService) {
-		super();
-		this.emailCheckService = emailCheckService;
-	}
-	
-	
 	@Autowired
-	public EmployerManager(EmployerDao employerDao) {
+	public EmployerManager(EmployerDao employerDao, EmailCheckService emailCheckService) {
 		super();
 		this.employerDao = employerDao;
+		this.emailCheckService = emailCheckService;
 	}
 
 	@Override
@@ -41,34 +35,54 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public Result add(Employer employer, String password) {
-		if (checkIfEmailExist(employer.getEmail())) {
-			this.employerDao.save(employer);
-			return new SuccessResult("Kayıt işlemi başarılı!(Onay bekleniyor...)");
+	public Result add(Employer employer) {
+		// TODO Auto-generated method stub
+		if (!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebAddress())) {
+            return new ErrorResult("web sitesinin domaini ile email adresi uyuşmuyor");
+        }
+		else if (!employer.getPassword().equals(employer.getRePassword())) {
+			return new ErrorResult("Girilen şifreler aynı değil!");
 		}
-		else if(!this.emailCheckService.checkEmailValidation(employer.getEmail())) {
-			return new ErrorResult(employer.getEmail() +" : Email onaylanmamış!");
-		}
-		else{
-			
-			return new ErrorResult("Email zaten kayıtlı!");
-		}
+        else if(!this.emailCheckService.checkEmailValidation(employer.getEmail())){
+            return new ErrorResult("e mail onaylanmamış");
+        }
+        else if (!checkIfEmailExist(employer.getEmail())) {
+            return new ErrorResult("Aynı e postayla başka bir kayıt var");
+        }
+        else {
+            this.employerDao.save(employer);
+            return new SuccessResult("İşlem başarılı sistem personelinin onayını bekliyor");
+        }
 	}
-	
-	
-	public boolean checkIfEmailExist(String email) {
-		if (this.employerDao.getByEmail(email)!=null) {
-			return false;
-		}
-		return true;
-	}
+
+
+    private Boolean checkIfEqualEmailAndDomain(String email, String website) {
+        String emailArr = email.split("@")[1];
+        String domain = website.substring(4, website.length());
+
+        if (emailArr.equals(domain)) {
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public Boolean checkIfEmailExist(String email) {
+        if (this.employerDao.getByEmail(email)!=null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 	@Override
 	public Result confirmEmployer(int id) {
 		
 		Employer employer = employerDao.getByUserId(id);
-		employer.setIsConfirm(true);;
+		employer.setIsConfirm(true);
 		employerDao.save(employer);
 		return new SuccessResult("Onaylama başarılı bir şekilde yapıldı!");
 		
@@ -77,27 +91,26 @@ public class EmployerManager implements EmployerService{
 
 	@Override
 	public Result update(Employer employer) {
-		Employer updatedUser = employerDao.getByUserId(employer.getId());
-		updatedUser.setUpdatedData(employer);
-		employerDao.save(updatedUser);
+		employer.setIsConfirm(false);
+		employerDao.save(employer);
 		return new SuccessResult("Güncelleme başarılı (aktivasyon için onay bekleniyor)");
 	}
 
 
-	@Override
-	public Result updateConfirm(int userId) {
-		
-		Employer employer = employerDao.getByUserId(userId);
-		if(!Objects.isNull(employer.getUpdatedData())) {
-			Employer updatedData = employer.getUpdatedData();
-			employerDao.save(updatedData);
-			 return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
-		}
-		employer.setIsActive(!employer.getIsActive());
-		employerDao.save(employer);
-		return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
-		
-	}
+//	@Override
+//	public Result updateConfirm(int userId) {
+//		
+//		Employer employer = employerDao.getByUserId(userId);
+//		if(!Objects.isNull(employer.getUpdatedData())) {
+//			Employer updatedData = employer.getUpdatedData();
+//			employerDao.save(updatedData);
+//			 return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
+//		}
+//		employer.setIsActive(!employer.getIsActive()); //amaç? 
+//		employerDao.save(employer);
+//		return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
+//		
+//	}
 
 
 	@Override
@@ -114,5 +127,7 @@ public class EmployerManager implements EmployerService{
 		// TODO Auto-generated method stub
 		return new SuccessDataResult<List<Employer>>(employerDao.getByUpdatedDataNotNull());
 	}
+
+	
 
 }

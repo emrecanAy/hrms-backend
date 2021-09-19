@@ -45,8 +45,8 @@ public class EmployersController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Employer employer, @RequestParam String rePassword) {
-		return ResponseEntity.ok(this.employerService.add(employer, rePassword));
+	public ResponseEntity<?> add(@Valid @RequestBody Employer employer) {
+			return ResponseEntity.ok(this.employerService.add(employer));	
 	}
 	
 	@PostMapping("/confirmEmployer")
@@ -59,10 +59,10 @@ public class EmployersController {
         return employerService.update(employer);
     }
 	
-	@PostMapping("/updateConfirm")
-	public Result updateConfirm(@RequestParam int id) {
-	     return employerService.updateConfirm(id);
-	}
+//	@PostMapping("/updateConfirm")
+//	public Result updateConfirm(@RequestParam int id) {
+//	     return employerService.updateConfirm(id);
+//	}
 
 	@GetMapping("/getByUserId")
 	public DataResult<Employer> getByUserId(@RequestParam int id) {

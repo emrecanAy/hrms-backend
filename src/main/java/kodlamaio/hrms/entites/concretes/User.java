@@ -44,7 +44,11 @@ public class User {
 	@NotBlank
 	private String password;
 	
-	@Column(name="is_active",columnDefinition = "boolean default true")
+	@NotNull
+	@NotBlank
+	private String rePassword;
+	
+	@Column(name="is_active", columnDefinition = "boolean default true")
     private Boolean isActive=true;
 
     @JsonIgnore
@@ -52,6 +56,6 @@ public class User {
     private LocalDate createdDate=LocalDate.now();
 
     @JsonIgnore
-    @Column(name="is_deleted",columnDefinition = "boolean default false")
+    @Column(name="is_deleted", columnDefinition = "boolean default false")
     private Boolean isDeleted= false;
 }

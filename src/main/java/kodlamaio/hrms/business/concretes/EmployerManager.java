@@ -93,7 +93,7 @@ public class EmployerManager implements EmployerService{
 	public Result update(Employer employer) {
 		employer.setIsConfirm(false);
 		employerDao.save(employer);
-		return new SuccessResult("Güncelleme başarılı (aktivasyon için onay bekleniyor)");
+		return new SuccessResult("Güncelleme başarılı (aktivasyon için onay bekleniyor)!");
 	}
 
 

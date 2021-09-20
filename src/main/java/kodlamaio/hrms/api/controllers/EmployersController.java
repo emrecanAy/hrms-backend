@@ -74,8 +74,6 @@ public class EmployersController {
 	     return employerService.getByUpdatedDataNotNull();
 	}
 	
-
-	
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)

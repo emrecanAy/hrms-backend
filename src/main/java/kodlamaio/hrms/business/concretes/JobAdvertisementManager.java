@@ -3,6 +3,7 @@ package kodlamaio.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
@@ -41,6 +42,38 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	public DataResult<List<JobAdvertisementDto>> jobAdvertisementDetails(){
 		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.jobAdvertisementDetails(), "Data başarıyla listelendi!");
 	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getActiveJobs() {
+		
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getActiveJobs(), "Data başarıyla listelendi!");
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllSortedByCreatedDate() {
+		
+		Sort sort = Sort.by(Sort.Direction.DESC, "createdDate");
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll(sort), "Data başarıyla listelendi!");
+	
+	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getByCompanyAndActiveJobs(String companyName) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByCompanyAndActiveJobs(companyName), "Data başarıyla listelendi!");
+	}
+
+	@Override
+	public Result setIsActive(int id) {
+		// TODO Auto-generated method stub
+		JobAdvertisement jobAdvertisementToDelete =  jobAdvertisementDao.getById(id);
+		jobAdvertisementToDelete.setIsActive(false);
+		jobAdvertisementDao.save(jobAdvertisementToDelete);
+		return new SuccessResult("İşlem başarılı!");
+	}
+	
+	
+	
 	
 	
 	

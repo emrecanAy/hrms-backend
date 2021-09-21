@@ -42,6 +42,26 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.jobAdvertisementDetails();
 	}
 	
+	@GetMapping("/getAllSortedByCreatedDate")
+	public DataResult<List<JobAdvertisement>> getAllSortedByCreatedDate(){
+		return this.jobAdvertisementService.getAllSortedByCreatedDate();
+	}
+	
+	@GetMapping("/getActiveJobs")
+	public DataResult<List<JobAdvertisement>> getActiveJobs(){
+		return this.jobAdvertisementService.getActiveJobs();
+	}
+	
+	@GetMapping("/getByCompanyAndActiveJobs")
+	public DataResult<List<JobAdvertisement>> getByCompanyAndActiveJobs(String companyName){
+		return this.jobAdvertisementService.getByCompanyAndActiveJobs(companyName);
+	}
+	
+	@PostMapping("/getByCompanyAndActiveJobs")
+	public Result setIsActive(int id) {
+		return this.jobAdvertisementService.setIsActive(id);
+	}
+	
 	
 	
 }

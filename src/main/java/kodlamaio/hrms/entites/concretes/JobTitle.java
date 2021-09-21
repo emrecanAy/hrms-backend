@@ -1,6 +1,5 @@
 package kodlamaio.hrms.entites.concretes;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +13,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="job_titles")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","jobAdvertisements"})
 public class JobTitle {
 	
 	@Id
@@ -38,10 +39,6 @@ public class JobTitle {
 	
 	@Column(name="description")
 	private String description;
-	
-	@Column(name="created_date")
-	@JsonIgnore
-	private LocalDate createdDate;
 	
 	@Column(name="is_active")
 	@JsonIgnore

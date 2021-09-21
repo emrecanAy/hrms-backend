@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.JobAdvertisementDao;
 import kodlamaio.hrms.entites.concretes.JobAdvertisement;
+import kodlamaio.hrms.entites.dtos.JobAdvertisementDto;
 
 @Service
 public class JobAdvertisementManager implements JobAdvertisementService{
@@ -35,6 +36,10 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 		// TODO Auto-generated method stub
 		this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult("Başarıyla eklendi!");
+	}
+	
+	public DataResult<List<JobAdvertisementDto>> jobAdvertisementDetails(){
+		return new SuccessDataResult<List<JobAdvertisementDto>>(this.jobAdvertisementDao.jobAdvertisementDetails(), "Data başarıyla listelendi!");
 	}
 	
 	

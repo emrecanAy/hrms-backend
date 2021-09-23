@@ -16,11 +16,11 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name = "languages")
+@Table(name = "skills")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language {
-	
+public class Skill {
+
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class Language {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(mappedBy = "language")
-	private List<CandidateLanguage> candidateLanguages;
-
+	@OneToMany(mappedBy = "skill")
+	private List<Cv> cvs;
+	
 }

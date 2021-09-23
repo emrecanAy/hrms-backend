@@ -47,7 +47,10 @@ public class JobTitle {
 	@Column(name="is_deleted")
 	private Boolean isDeleted;
 	
-	@OneToMany(mappedBy = "jobTitle")
+	@OneToMany(mappedBy = "jobTitle", targetEntity = JobAdvertisement.class)
 	private List<JobAdvertisement> jobAdvertisements;
+	
+	@OneToMany(mappedBy = "jobTitle", targetEntity = WorkExperience.class)
+	private List<WorkExperience> workExperiences;
 
 }

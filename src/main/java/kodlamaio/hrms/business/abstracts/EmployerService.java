@@ -12,7 +12,6 @@ public interface EmployerService {
 	Result add(Employer employer);
 	Result confirmEmployer(int id);
 	Result update(Employer employer);
-	//Result updateConfirm(int userId);
 	DataResult<Employer> getByUserId(int id);
 	DataResult<List<Employer>> getByUpdatedDataNotNull();
 	

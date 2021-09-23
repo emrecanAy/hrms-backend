@@ -14,22 +14,24 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Entity
-@Table(name = "languages")
+@Table(name = "images")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Language {
+public class Image {
 	
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "name")
-	private String name;
+	@Column(name = "image_url")
+	private String imageUrl;
 	
-	@OneToMany(mappedBy = "language")
-	private List<CandidateLanguage> candidateLanguages;
+	@OneToMany(mappedBy = "imageUrl")
+	private List<Cv> cvs;
+
 
 }

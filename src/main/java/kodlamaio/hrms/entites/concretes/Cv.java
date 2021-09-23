@@ -59,10 +59,9 @@ public class Cv {
 	@ManyToOne(targetEntity = WorkExperience.class)
 	@JoinColumn(name = "work_experience")
 	private WorkExperience workExperience;
-	
-	@ManyToOne(targetEntity = Image.class)
-	@JoinColumn(name = "image_url")
-	private Image imageUrl;
+
+	@Column(name="imageUrl")
+	private String imageUrl;
 	
 
 }

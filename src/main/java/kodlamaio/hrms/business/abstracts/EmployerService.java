@@ -9,7 +9,7 @@ import kodlamaio.hrms.entites.concretes.Employer;
 public interface EmployerService {
 
 	DataResult<List<Employer>> getAll();
-	Result add(Employer employer);
+	Result add(Employer employer, String rePassword);
 	Result confirmEmployer(int id);
 	Result update(Employer employer);
 	DataResult<Employer> getByUserId(int id);

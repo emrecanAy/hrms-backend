@@ -62,6 +62,10 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.setIsActive(id);
 	}
 	
+	@GetMapping("/getAllSortedJobAdvertisementByStatusDesc")
+	public DataResult<List<JobAdvertisement>> getAllSortedJobAdvertisementByStatusDesc(){
+		return this.jobAdvertisementService.getAllSortedJobAdvertisementByStatusDesc();
+	}
 	
 	
 }

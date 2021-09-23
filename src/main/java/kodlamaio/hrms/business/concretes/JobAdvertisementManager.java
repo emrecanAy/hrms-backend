@@ -66,11 +66,20 @@ public class JobAdvertisementManager implements JobAdvertisementService{
 	@Override
 	public Result setIsActive(int id) {
 		// TODO Auto-generated method stub
-		JobAdvertisement jobAdvertisementToDelete =  jobAdvertisementDao.getById(id);
-		jobAdvertisementToDelete.setIsActive(false);
-		jobAdvertisementDao.save(jobAdvertisementToDelete);
+		JobAdvertisement jobAdvertisement=this.jobAdvertisementDao.getById(id);
+        jobAdvertisement.setIsActive(!jobAdvertisement.getIsActive());
+        this.jobAdvertisementDao.save(jobAdvertisement);
 		return new SuccessResult("İşlem başarılı!");
 	}
+
+	@Override
+	public DataResult<List<JobAdvertisement>> getAllSortedJobAdvertisementByStatusDesc() {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getAllSortedJobAdvertisementByStatusDesc(), "Data başarıyla listelendi!");
+	}
+
+	
+	
 	
 	
 	

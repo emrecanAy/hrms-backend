@@ -34,8 +34,21 @@ public class CandidateEducationManager implements CandidateEducationService{
 	public Result add(CandidateEducation candidateEducation) {
 		// TODO Auto-generated method stub
 		this.candidateEducationDao.save(candidateEducation);
-		return new SuccessResult("Başarıyla eklendi!");
+		return new SuccessResult("CV'ye başarıyla eklendi!");
 	}
+
+	@Override
+	public DataResult<List<CandidateEducation>> getAllByCvs_Id(int id) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<CandidateEducation>>(this.candidateEducationDao.getAllByCvs_Id(id), "Data başarıyla listelendi!");
+	}
+
+	@Override
+	public DataResult<List<CandidateEducation>> getAllByCvs_OrderByGraduateDateDesc(int id) {
+		// TODO Auto-generated method stub
+		return new SuccessDataResult<List<CandidateEducation>>(this.candidateEducationDao.getAllByCvs_OrderByGraduateDateDesc(id), "Data başarıyla listelendi!");
+	}
+	
 	
 	
 	

@@ -42,10 +42,13 @@ public class CandidateManager implements CandidateService{
 	}
 
 	@Override
-	public Result add(Candidate candidate) {
+	public Result add(Candidate candidate, String rePassword) {
 		if (checkIfEmailExist(candidate.getEmail())) {
 			this.candidateDao.save(candidate);
 			return new SuccessResult("Kişi başarıyla eklendi!");
+		}
+		else if (!candidate.getPassword().equals(rePassword)) {
+			return new ErrorResult("girilen şifreler aynı değil");
 		}
 		else if(!mernisCheckService.checkIfRealPerson(candidate)){
 			return new ErrorResult("Geçersiz kullanıcı!"); 

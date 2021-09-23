@@ -42,8 +42,8 @@ public class CandidatesController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate) {
-		return ResponseEntity.ok(this.candidateService.add(candidate));
+	public ResponseEntity<?> add(@Valid @RequestBody Candidate candidate, String rePassword) {
+		return ResponseEntity.ok(this.candidateService.add(candidate, rePassword));
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

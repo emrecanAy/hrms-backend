@@ -35,13 +35,13 @@ public class EmployerManager implements EmployerService{
 	}
 
 	@Override
-	public Result add(Employer employer) {
+	public Result add(Employer employer, String rePassword) {
 		// TODO Auto-generated method stub
 		if (!checkIfEqualEmailAndDomain(employer.getEmail(), employer.getWebAddress())) {
             return new ErrorResult("web sitesinin domaini ile email adresi uyuşmuyor");
         }
-		else if (!employer.getPassword().equals(employer.getRePassword())) {
-			return new ErrorResult("Girilen şifreler aynı değil!");
+		else if (!employer.getPassword().equals(rePassword)) {
+			return new ErrorResult("girilen şifreler aynı değil");
 		}
         else if(!this.emailCheckService.checkEmailValidation(employer.getEmail())){
             return new ErrorResult("e mail onaylanmamış");

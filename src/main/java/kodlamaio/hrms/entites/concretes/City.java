@@ -34,8 +34,11 @@ public class City {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name="country_id")
+	private int countryId;
+	
 	@ManyToOne
-	@JoinColumn(name="country_id")
+	@JoinColumn(name="country")
 	private Country country;
 	
 	@OneToMany(mappedBy = "city")

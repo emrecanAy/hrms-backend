@@ -45,8 +45,8 @@ public class EmployersController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody Employer employer) {
-			return ResponseEntity.ok(this.employerService.add(employer));	
+	public ResponseEntity<?> add(@Valid @RequestBody Employer employer, String rePassword) {
+			return ResponseEntity.ok(this.employerService.add(employer, rePassword));	
 	}
 	
 	@PostMapping("/confirmEmployer")

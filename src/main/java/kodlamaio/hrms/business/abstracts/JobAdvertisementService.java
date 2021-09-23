@@ -20,6 +20,10 @@ public interface JobAdvertisementService {
 
 	DataResult<List<JobAdvertisement>> getByCompanyAndActiveJobs(String companyName);
 	
+	//DataResult<List<JobAdvertisement>> findIsActiveTrueByOrderByCreatedDateDesc();
+	
+	DataResult<List<JobAdvertisement>> getAllSortedJobAdvertisementByStatusDesc();
+	
 	Result setIsActive(int id);
 	
 	

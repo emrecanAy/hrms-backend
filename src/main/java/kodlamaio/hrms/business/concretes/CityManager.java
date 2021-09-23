@@ -12,6 +12,7 @@ import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.CityDao;
 import kodlamaio.hrms.entites.concretes.City;
+import kodlamaio.hrms.entites.dtos.CityAddDto;
 
 @Service
 public class CityManager implements CityService{
@@ -23,6 +24,20 @@ public class CityManager implements CityService{
 		super();
 		this.cityDao = cityDao;
 	}
+	
+
+	@Override
+	//Automapper araştır!
+	public Result add(CityAddDto cityAddDto) {
+		// TODO Auto-generated method stub
+
+		City city = new City();
+		city.setId(cityAddDto.getId());
+		city.setCountryId(cityAddDto.getCountryId());
+		city.setName(cityAddDto.getName());	
+		this.cityDao.save(city);
+		return new SuccessResult("Başarıyla eklendi!");
+	}
 
 	@Override
 	public DataResult<List<City>> getAll() {
@@ -30,12 +45,19 @@ public class CityManager implements CityService{
 		return new SuccessDataResult<List<City>>(this.cityDao.findAll(), "Data başarıyla listelendi!");
 	}
 
+
 	@Override
-	public Result add(City city) {
+	public DataResult<List<CityAddDto>> getDetails() {
 		// TODO Auto-generated method stub
-		this.cityDao.save(city);
-		return new SuccessResult("Başarıyla eklendi!");
+		return new SuccessDataResult<List<CityAddDto>>(this.cityDao.cityAddDetails(), "Data başarıyla listelendi!");
 	}
+	
+	
+
+	
+	
+	
+
 	
 	
 	

@@ -9,33 +9,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlamaio.hrms.business.abstracts.ImageService;
+import kodlamaio.hrms.business.abstracts.CvService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
-import kodlamaio.hrms.entites.concretes.Image;
+import kodlamaio.hrms.entites.concretes.Cv;
 
 @RestController
-@RequestMapping("/api/images")
-public class ImagesController {
-
-	private ImageService imageService;
+@RequestMapping("/api/cvs")
+public class CvsController {
+	
+	private CvService cvService;
 
 	@Autowired
-	public ImagesController(ImageService imageService) {
+	public CvsController(CvService cvService) {
 		super();
-		this.imageService = imageService;
-	}
-	
-	@PostMapping("/add")
-	public Result add(@RequestBody Image image) {
-		return this.imageService.add(image);
+		this.cvService = cvService;
 	}
 	
 	@GetMapping("/getAll")
-	public DataResult<List<Image>> getAll(){
-		return this.imageService.getAll();
+	public DataResult<List<Cv>> getAll(){
+		return this.cvService.getAll();
+	}
+	
+	@PostMapping("/add")
+	Result add(@RequestBody Cv cv) {
+		return this.cvService.add(cv);
 	}
 	
 	
-	
+
 }

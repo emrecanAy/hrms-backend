@@ -13,6 +13,7 @@ import kodlamaio.hrms.business.abstracts.CityService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.entites.concretes.City;
+import kodlamaio.hrms.entites.dtos.CityAddDto;
 
 @RestController
 @RequestMapping("/api/cities")
@@ -32,10 +33,14 @@ public class CitiesController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestBody City city) {
+	public Result add(@RequestBody CityAddDto city) {
 		return this.cityService.add(city);
 	}
 	
+	@GetMapping("/getDetails")
+	public DataResult<List<CityAddDto>> getDetails(){
+		return this.cityService.getDetails();
+	}
 	
 	
 }

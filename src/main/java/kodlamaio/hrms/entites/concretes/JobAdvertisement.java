@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Table(name="job_advertisement")
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","city"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","city","jobTitle"})
 public class JobAdvertisement {
 	
 	@Id
@@ -54,7 +54,6 @@ public class JobAdvertisement {
 	private Boolean isVerifiedByEmployee = false;
 	
 	@Column(name="is_active", columnDefinition = "boolean default true")
-	@JsonIgnore
 	private Boolean isActive = true;
 
 	@Column(name="is_deleted", columnDefinition = "boolean default false")

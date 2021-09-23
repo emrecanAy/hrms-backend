@@ -36,6 +36,16 @@ public class CandidateEducationsController {
 		return this.candidateEducationService.add(candidateEducation);
 	}
 	
+	@GetMapping("/getAllByCvId")
+	public DataResult<List<CandidateEducation>> getAllByCvs_Id(int id){
+		return this.candidateEducationService.getAllByCvs_Id(id);
+	}
+	
+	@GetMapping("/getAllByGraduateDateDesc")
+	public DataResult<List<CandidateEducation>> getAllByCvs_OrderByGraduateDateDesc(int id){
+		return this.candidateEducationService.getAllByCvs_OrderByGraduateDateDesc(id);
+	}
+	
 	
 	
 }

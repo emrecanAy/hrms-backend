@@ -97,22 +97,6 @@ public class EmployerManager implements EmployerService{
 	}
 
 
-//	@Override
-//	public Result updateConfirm(int userId) {
-//		
-//		Employer employer = employerDao.getByUserId(userId);
-//		if(!Objects.isNull(employer.getUpdatedData())) {
-//			Employer updatedData = employer.getUpdatedData();
-//			employerDao.save(updatedData);
-//			 return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
-//		}
-//		employer.setIsActive(!employer.getIsActive()); //amaç? 
-//		employerDao.save(employer);
-//		return new SuccessResult("Kullanıcı onay durumu *Onaylandı* olarak değiştirildi");
-//		
-//	}
-
-
 	@Override
 	public DataResult<Employer> getByUserId(int id) {
 		// TODO Auto-generated method stub

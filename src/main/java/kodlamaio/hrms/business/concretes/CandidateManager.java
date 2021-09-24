@@ -26,7 +26,7 @@ public class CandidateManager implements CandidateService{
 	
 	public CandidateManager(MernisCheckService mernisCheckService, EmailCheckService emailCheckService) {
 		this.mernisCheckService = mernisCheckService;
-		this.emailCheckService = emailCheckService;
+		this.emailCheckService = emailCheckService;	
 	}
 	
 	@Autowired
@@ -77,7 +77,7 @@ public class CandidateManager implements CandidateService{
 		}
 		return true;
 	}
-	
+
 	
 	
 	

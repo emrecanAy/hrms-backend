@@ -41,6 +41,11 @@ public class Candidate extends User{
 	@NotBlank
 	private String lastName;
 	
+	@Column(name="image_url")
+	@NotNull
+	@NotBlank
+	private String imageUrl;
+	
 	@Column(name="identity_number")
 	@NotNull
 	@NotBlank

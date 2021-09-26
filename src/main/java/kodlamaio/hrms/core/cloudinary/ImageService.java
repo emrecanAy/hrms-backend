@@ -9,7 +9,7 @@ import kodlamaio.hrms.core.utilities.results.DataResult;
 
 public interface ImageService {
 	
-	DataResult<Map> upload(MultipartFile multipartFile) throws IOException;
-	DataResult<Map> delete(String id) throws IOException;
+	 DataResult<Map> upload(MultipartFile multipartFile) throws IOException;
+	 DataResult<Map> delete(String id) throws IOException;
 
 }
